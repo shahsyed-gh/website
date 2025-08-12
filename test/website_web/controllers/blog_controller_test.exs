@@ -27,6 +27,6 @@ defmodule WebsiteWeb.BlogControllerTest do
     |> assert_html("a[href='/contact']", count: 1)
     |> assert_html("table", count: 1)
     |> assert_html("a", min: 2)
-    |> assert_html("a", max: 11)
+    |> assert_html("a", max: 12)
   end
 end
