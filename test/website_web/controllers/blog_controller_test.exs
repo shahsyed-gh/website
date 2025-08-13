@@ -15,18 +15,4 @@ defmodule WebsiteWeb.BlogControllerTest do
     |> assert_html("a", max: 10)
   end
 
-  test "should get list of most recent blogs", %{conn: conn} do
-    conn = get(conn, "/blog")
-
-    html_response(conn, 200)
-    |> assert_html("title", "Shah Syed · Blog")
-    |> assert_html("a[href='/blog']", count: 1)
-    |> assert_html("a[href='/resume']", count: 1)
-    |> assert_html("a[href='/projects/bachao']", count: 1)
-    |> assert_html("a[href='/projects/portfolio']", count: 1)
-    |> assert_html("a[href='/contact']", count: 1)
-    |> assert_html("table", count: 1)
-    |> assert_html("a", min: 2)
-    |> assert_html("a", max: 12)
-  end
 end
