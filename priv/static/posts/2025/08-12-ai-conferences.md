@@ -5,6 +5,7 @@ tags: ["ai", "conferences", "product management", "sustainability"],
 description: "Playing with technology, redux",
 published: true
 }
+
 # Rethinking AI Conferences: What Product Managers Can Learn from a System at Its Breaking Point
 
 **Summary:**  
