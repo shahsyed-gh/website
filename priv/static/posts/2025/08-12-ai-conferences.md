@@ -1,8 +1,8 @@
 %{
-title: "Free AI Agents Guide Taking Silicon Valley by Storm!",
+title: "Rethinking AI Conferences for PMs",
 author: "Shah",
 tags: ["ai", "conferences", "product management", "sustainability"],
-description: "Playing with technology, redux",
+description: "AI Conferences are getting too big to handle. This post explores the challenges and proposes a decentralized approach that product managers can learn from.",
 published: true
 }
 ---
