@@ -1,5 +1,3 @@
-# fly.toml file generated for shah-website on 2022-12-12T18:58:57-05:00
-
 app = "shah-website"
 kill_signal = "SIGTERM"
 kill_timeout = 5
