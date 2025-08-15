@@ -108,7 +108,7 @@ function useLocalTime(timeZone: string) {
       const now = new Date();
       setLocalTime(
         new Intl.DateTimeFormat('en-US', {
-          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone
+          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, timeZone
         }).format(now)
       );
     }
@@ -126,7 +126,7 @@ const defaultData = {
   socialLinks: [
     { icon: '📧', href: 'mailto:shah@shahsyed.com' },
   ],
-  navLinks: [{ label: 'About Me', href: '#about' }],
+  navLinks: [{ label: 'Shah Syed', href: '#about' }],
   hero: {
     title: '',
     subtitle: '',
@@ -214,47 +214,81 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
       <div className="relative">
         {/* Header with Status and Social Links */}
         <header className="sticky top-0 z-50 w-full px-6 py-4 bg-background/95 backdrop-blur-sm border-b border-border">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <button 
-                onClick={toggleTheme}
-                className="w-8 h-8 rounded-full overflow-hidden hover:opacity-80 transition-opacity cursor-pointer"
-              >
-                <img 
-                  src="/logo.svg" 
-                  alt="PM Logo" 
-                  className="w-full h-full object-cover dark:grayscale dark:hover:grayscale-0 transition-all duration-300"
-                />
-              </button>
-              <span className="text-lg font-medium">{logo.name}</span>
-            </div>
-            
-            <div className="hidden md:flex items-center space-x-8 text-sm">
-              <div className="flex items-center space-x-2">
-                <span className="text-xs uppercase tracking-wide text-muted-foreground">AVAILABILITY</span>
+          <div className="max-w-7xl mx-auto">
+            {/* Mobile Layout - Stacked and Centered */}
+            <div className="flex flex-col items-center space-y-4 md:hidden">
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center space-x-2">
+                  <button 
+                    onClick={toggleTheme}
+                    className="w-8 h-8 rounded-full overflow-hidden hover:opacity-80 transition-opacity cursor-pointer"
+                  >
+                    <img 
+                      src="/logo.svg" 
+                      alt="PM Logo" 
+                      className="w-full h-full object-cover dark:grayscale dark:hover:grayscale-0 transition-all duration-300"
+                    />
+                  </button>
+                  <span className="text-lg font-medium">{logo.name}</span>
+                </div>
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="font-medium text-foreground">{statusInfo.availability}</span>
+                  <span className="text-sm font-medium text-foreground">Available</span>
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2">
-                <span className="text-xs uppercase tracking-wide text-muted-foreground">LOCAL TIME</span>
-                <span className="font-medium text-foreground">{localTime}</span>
-              </div>
-              
-              <div className="flex items-center space-x-2">
-                <span className="text-xs uppercase tracking-wide text-muted-foreground">CITY</span>
-                <span className="font-medium text-foreground">{statusInfo.city}</span>
+              <div className="flex flex-wrap justify-center gap-3">
+                {socialLinks.map((link, index) => (
+                  <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                    <span className="text-sm">{link.icon}</span>
+                  </a>
+                ))}
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
-              {socialLinks.map((link, index) => (
-                <a key={index} href={link.href} className="w-8 h-8 bg-muted rounded-full flex items-center justify-center hover:bg-muted/80 transition-colors">
-                  <span className="text-sm">{link.icon}</span>
-                </a>
-              ))}
+            {/* Desktop Layout - Original */}
+            <div className="hidden md:flex justify-between items-center">
+              <div className="flex items-center space-x-2">
+                <button 
+                  onClick={toggleTheme}
+                  className="w-8 h-8 rounded-full overflow-hidden hover:opacity-80 transition-opacity cursor-pointer"
+                >
+                  <img 
+                    src="/logo.svg" 
+                    alt="PM Logo" 
+                    className="w-full h-full object-cover dark:grayscale dark:hover:grayscale-0 transition-all duration-300"
+                  />
+                </button>
+                <span className="text-lg font-medium">{logo.name}</span>
+              </div>
+              
+              <div className="flex items-center space-x-8 text-sm">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground">AVAILABILITY</span>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="font-medium text-foreground">{statusInfo.availability}</span>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground">LOCAL TIME</span>
+                  <span className="font-medium text-foreground w-24 text-center">{localTime}</span>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground">CITY</span>
+                  <span className="font-medium text-foreground">{statusInfo.city}</span>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                {socialLinks.map((link, index) => (
+                  <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                    <span className="text-sm">{link.icon}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </header>
@@ -339,11 +373,12 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                         <div className="flex-grow">
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
                             <h3 className="text-xl font-bold text-foreground">
-                              {experience.company}, {experience.position}
+                              {experience.company}
+                                <span className="text-muted-foreground"><br/>{experience.position}</span>
                             </h3>
                           </div>
                           <div className="text-muted-foreground text-sm mb-4">
-                            {experience.duration}. {experience.location}
+                            {experience.duration} - {experience.location}
                           </div>
                           <p className="text-muted-foreground leading-relaxed">
                             {experience.description}
@@ -404,7 +439,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                         </div>
 
                         <div>
-                          <h3 className="text-xl font-bold mb-4 text-foreground">User Research Approach</h3>
+                          <h3 className="text-xl font-bold mb-4 text-foreground">Customer Obsessed Approach</h3>
                           <p className="text-muted-foreground leading-relaxed mb-8">
                             {project.approach}
                           </p>
@@ -423,7 +458,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
               </div>
             )}
 
-            {/* Previously Worked With Section */}
+            {/* Previously Worked At Section */}
             {companies && companies.length > 0 && (
               <div className="mb-20 pt-20 border-t border-border">
                 <div className="text-center mb-16">
@@ -463,7 +498,34 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
               </div>
 
               <div className="border-t border-border pt-8">
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center text-sm text-muted-foreground">
+                {/* Mobile Layout - Stacked and Centered */}
+                <div className="flex flex-col items-center space-y-4 md:hidden text-sm text-muted-foreground">
+                  <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs">
+                    <div className="text-center">
+                      <span className="uppercase tracking-wide block">VERSION</span>
+                      <div className="font-medium text-foreground">© 2025 Shah Syed. All rights reserved.</div>
+                    </div>
+                    <div className="text-center">
+                      <span className="uppercase tracking-wide block">LOCAL TIME</span>
+                      <div className="font-medium text-foreground">{localTime}</div>
+                    </div>
+                    <div className="text-center">
+                      <span className="uppercase tracking-wide block">CITY</span>
+                      <div className="font-medium text-foreground">{statusInfo.city}</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap justify-center gap-3">
+                    {socialLinks.map((link, index) => (
+                      <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                        <span className="text-sm">{link.icon}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Desktop Layout - Original */}
+                <div className="hidden md:flex flex-col lg:flex-row justify-between items-start lg:items-center text-sm text-muted-foreground">
                   <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8 mb-8 lg:mb-0">
                     <div className="mb-4 lg:mb-0">
                       <span className="text-xs uppercase tracking-wide">VERSION</span>
@@ -471,7 +533,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                     </div>
                     <div className="mb-4 lg:mb-0">
                       <span className="text-xs uppercase tracking-wide">LOCAL TIME</span>
-                      <div className="font-medium text-foreground">{localTime}</div>
+                      <div className="font-medium text-foreground w-24">{localTime}</div>
                     </div>
                     <div>
                       <span className="text-xs uppercase tracking-wide">CITY</span>
@@ -479,9 +541,9 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                     </div>
                   </div>
 
-                    <div className="flex items-center space-x-4">
-                      {socialLinks.map((link, index) => (
-                        <a key={index} href={link.href} className="w-8 h-8 bg-muted rounded-full flex items-center justify-center hover:bg-muted/80 transition-colors">
+                  <div className="flex items-center space-x-4">
+                    {socialLinks.map((link, index) => (
+                      <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
                         <span className="text-sm">{link.icon}</span>
                       </a>
                     ))}

@@ -1,9 +1,10 @@
 import { LocalPortfolio, LocalPortfolioProps } from "@/components/ui/local-portfolio";
+import blogIcon from "@/assets/icons/blog.png";
 import linkedinIcon from "@/assets/icons/linkedin.png";
 import instagramIcon from "@/assets/icons/instagram.png";
 import emailIcon from "@/assets/icons/email.png";
 import twitterIcon from "@/assets/icons/twitter.png";
-import websiteIcon from "@/assets/icons/website.png";
+import blueskyIcon from "@/assets/icons/bluesky.png";
 import tiktokIcon from "@/assets/icons/tiktok.png";
 
 const customPortfolioData: LocalPortfolioProps = {
@@ -17,15 +18,16 @@ const customPortfolioData: LocalPortfolioProps = {
     city: 'Columbus, Ohio'
   },
   socialLinks: [
+      { icon: <img src={blogIcon} alt="Blog" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: '/blog' },
     { icon: <img src={linkedinIcon} alt="LinkedIn" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://linkedin.com/in/shahsyedmba' },
     { icon: <img src={instagramIcon} alt="Instagram" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://instagram.com/engineeringpm' },
     { icon: <img src={emailIcon} alt="Email" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'mailto:shah@shahsyed.com' },
     { icon: <img src={twitterIcon} alt="Twitter" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://twitter.com/pmengineer' },
-    { icon: <img src={websiteIcon} alt="Website" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://bsky.app/profile/engineeringpm.bsky.social' },
+    { icon: <img src={blueskyIcon} alt="Website" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://bsky.app/profile/engineeringpm.bsky.social' },
     { icon: <img src={tiktokIcon} alt="TikTok" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://tiktok.com/@engineeringpm' },
   ],
   navLinks: [
-    { label: 'About Me', href: '#about' },
+    { label: 'Shah Syed', href: '#about' },
   ],
   hero: {
     title: 'Product Manager',
@@ -50,7 +52,7 @@ const customPortfolioData: LocalPortfolioProps = {
           ' by employees, communities and the planet. Gap Inc. products are available worldwide through company-operated' +
           ' stores, franchise stores, and e-commerce sites. Fiscal year 2023 net sales were $14.9 billion. ' +
           'For more information, please visit www.gapinc.com',
-      icon: <div className="w-10 h-10 bg-blue-900 rounded-full flex items-center justify-center text-white text-lg">🚀</div>
+      icon: <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-white"><img src="/logos/gap.png" alt="Gap Inc." className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /></div>
     },
     {
       company: 'JPMorgan Chase',
@@ -62,7 +64,7 @@ const customPortfolioData: LocalPortfolioProps = {
           'global operations across 100 markets.With a history tracing its roots to 1799 in New York City, JPMorganChase ' +
           'is one of the world\'s oldest, largest, and best-known financial institutions—carrying forth the innovative ' +
           'spirit of our heritage firms in global operations across 100 markets.',
-      icon: <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white text-lg">📊</div>
+      icon: <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-white"><img src="/logos/jpmorgan.jpg" alt="JPMorgan Chase" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /></div>
     },
     {
       company: 'Priceline',
@@ -73,7 +75,7 @@ const customPortfolioData: LocalPortfolioProps = {
           'Through our innovative technology, we make travel affordable and accessible for all, helping millions of ' +
           'travelers each year experience the moments that matter most. Whether it’s a much-needed getaway, wedding, ' +
           'reunion, graduation, or rooting on a favorite team—those are the moments that nobody should miss out on.',
-      icon: <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white text-lg">📱</div>
+      icon: <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-white"><img src="/logos/priceline.jpg" alt="Priceline" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /></div>
     }
   ],
   projects: [
@@ -88,11 +90,11 @@ const customPortfolioData: LocalPortfolioProps = {
     }
   ],
   companies: [
-    { name: 'Gap', logo: <img src="logos/gap.png" alt="Gap Inc." className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300 object-contain" /> },
-    { name: 'JPMorgan', logo: <img src="logos/jpmorgan.jpg" alt="JPMorgan Chase" className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300 object-contain" /> },
-    { name: 'Priceline', logo: <img src="logos/priceline.jpg" alt="Priceline" className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300 object-contain" /> },
-    { name: 'TD', logo: <img src="logos/td.jpg" alt="TD Bank" className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300 object-contain" /> },
-    { name: 'Ryerson', logo: <img src="logos/ryerson.jpg" alt="Ryerson University" className="h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300 object-contain" /> }
+    // { name: 'Gap', logo: <img src="logos/gap.png" alt="Gap Inc." className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> },
+    { name: 'JPMorgan', logo: <img src="logos/jpmorgan.jpg" alt="JPMorgan Chase" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> },
+    { name: 'Priceline', logo: <img src="logos/priceline.jpg" alt="Priceline" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> },
+    { name: 'TD', logo: <img src="logos/td.jpg" alt="TD Bank" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> },
+    { name: 'Ryerson', logo: <img src="logos/ryerson.jpg" alt="Ryerson University" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> }
   ],
   showAnimatedBackground: false,
 };
