@@ -1,33 +1,38 @@
-# fly.toml app configuration file generated for render-essence on 2025-08-15T11:14:45-04:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'render-essence'
-primary_region = 'iad'
-
-[build]
+app = "shah-website"
+kill_signal = "SIGTERM"
+kill_timeout = 5
+processes = []
 
 [env]
-  PORT = '8080'
+  PHX_HOST = "shah-website.fly.dev"
+  PORT = "8080"
 
-[http_service]
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
   internal_port = 8080
-  force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
 
-  [[http_service.checks]]
-    interval = '15s'
-    timeout = '10s'
-    grace_period = '5s'
-    method = 'GET'
-    path = '/'
-    protocol = 'http'
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
 
-[[vm]]
-  memory = '256mb'
-  cpu_kind = 'shared'
-  cpus = 1
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
