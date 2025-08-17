@@ -82,11 +82,24 @@ const customPortfolioData: LocalPortfolioProps = {
     {
       title: 'shahsyed.com',
       category: 'Portfolio Website',
-      challenge: 'Utilize my PM skills to create a website with analytics and a blog system while updating my overall design. ' +
-          'I am not a designer by trade so I leveraged AI to help come up with a new theme while focusing on the analytics.',
-      approach: 'I am in the process of uploading a youtube video to explain exactly what I did! Stay tuned!',
+      challenge: '"Applied product requirements gathering and user experience optimization to redesign my portfolio with' +
+          ' integrated analytics tracking and content management, using data-driven design decisions and stakeholder ' +
+          'feedback to improve site performance and user engagement metrics.',
+      approach: 'I am in the process of uploading a YouTube video to explain exactly what I did! Stay tuned!',
       result: 'Launched a comprehensive analytics based portfolio that tracks user visits, sees how people are engaging with my website, so that I can grow my personal brand.',
-      imageUrl: 'portfolio.png'
+      imageUrl: 'projects/proj-portfolio.png'
+    },
+    {
+      title: 'SocialSpark',
+      category: 'Social Media Marketing Tool',
+      challenge: 'Conducted market research and defined MVP requirements for a social media automation platform, ' +
+          'prioritizing core user workflows for AI content generation and multi-platform distribution. ' +
+          'Led product discovery to identify key integration points across YouTube, Instagram, TikTok, Twitter, and ' +
+          'Bluesky, focusing on scalable content management and cross-posting functionality.',
+      approach: 'I am in the process of uploading a YouTube video to explain exactly what I did! Stay tuned!',
+      result: 'Developed a prototype that integrates with major social media platforms, enabling users to automate ' +
+          'content creation and distribution, significantly reducing time spent on social media management.',
+      imageUrl: 'projects/proj-zap.png'
     }
   ],
   companies: [

@@ -154,9 +154,17 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
 }) => {
   const { theme, setTheme } = useTheme();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isShahSyedDomain, setIsShahSyedDomain] = useState(false);
   
   // --- DYNAMIC LOCAL TIME ---
   const localTime = useLocalTime('America/New_York');
+
+  // --- DOMAIN DETECTION ---
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsShahSyedDomain(window.location.hostname === 'shahsyed.com');
+    }
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -263,13 +271,15 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
               </div>
               
               <div className="flex items-center space-x-8 text-sm">
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs uppercase tracking-wide text-muted-foreground">AVAILABILITY</span>
-                  <div className="flex items-center space-x-1">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="font-medium text-foreground">{statusInfo.availability}</span>
+                {!isShahSyedDomain && (
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs uppercase tracking-wide text-muted-foreground">AVAILABILITY</span>
+                    <div className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="font-medium text-foreground">{statusInfo.availability}</span>
+                    </div>
                   </div>
-                </div>
+                )}
                 
                 <div className="flex items-center space-x-2">
                   <span className="text-xs uppercase tracking-wide text-muted-foreground">LOCAL TIME</span>
@@ -405,56 +415,74 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
             {/* Projects Section */}
             {projects && projects.length > 0 && (
               <div className="mb-20">
-                {projects.map((project, index) => (
-                  <div key={index} className="mb-20">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                      {/* Left Column - Project Image */}
+                {projects.map((project, index) => {
+                  const isEven = index % 2 === 0;
+                  
+                  const ImageColumn = (
+                    <div>
+                      {project.imageUrl && (
+                        <div className="w-full aspect-[4/3] bg-muted rounded-lg overflow-hidden">
+                          <img 
+                            src={project.imageUrl} 
+                            alt={project.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+
+                  const DetailsColumn = (
+                    <div className="space-y-8">
                       <div>
-                        {project.imageUrl && (
-                          <div className="w-full aspect-[4/3] bg-muted rounded-lg overflow-hidden">
-                            <img 
-                              src={project.imageUrl} 
-                              alt={project.title}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        )}
+                        <h2 className="text-5xl md:text-6xl font-bold mb-2 text-foreground">
+                          {project.title}
+                          <span className="text-muted-foreground">.</span>
+                        </h2>
+                        <p className="text-muted-foreground text-lg">{project.category}</p>
                       </div>
 
-                      {/* Right Column - Project Details */}
-                      <div className="space-y-8">
-                        <div>
-                          <h2 className="text-5xl md:text-6xl font-bold mb-2 text-foreground">
-                            {project.title}
-                            <span className="text-muted-foreground">.</span>
-                          </h2>
-                          <p className="text-muted-foreground text-lg">{project.category}</p>
-                        </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-4 text-foreground">Challenge</h3>
+                        <p className="text-muted-foreground leading-relaxed mb-8">
+                          {project.challenge}
+                        </p>
+                      </div>
 
-                        <div>
-                          <h3 className="text-xl font-bold mb-4 text-foreground">Challenge</h3>
-                          <p className="text-muted-foreground leading-relaxed mb-8">
-                            {project.challenge}
-                          </p>
-                        </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-4 text-foreground">Customer Obsessed Approach</h3>
+                        <p className="text-muted-foreground leading-relaxed mb-8">
+                          {project.approach}
+                        </p>
+                      </div>
 
-                        <div>
-                          <h3 className="text-xl font-bold mb-4 text-foreground">Customer Obsessed Approach</h3>
-                          <p className="text-muted-foreground leading-relaxed mb-8">
-                            {project.approach}
-                          </p>
-                        </div>
-
-                        <div>
-                          <h3 className="text-xl font-bold mb-4 text-foreground">Result</h3>
-                          <p className="text-muted-foreground leading-relaxed">
-                            {project.result}
-                          </p>
-                        </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-4 text-foreground">Result</h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {project.result}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+
+                  return (
+                    <div key={index} className="mb-20">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20 pt-20 border-t border-border">
+                        {isEven ? (
+                          <>
+                            {ImageColumn}
+                            {DetailsColumn}
+                          </>
+                        ) : (
+                          <>
+                            {DetailsColumn}
+                            {ImageColumn}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
 
