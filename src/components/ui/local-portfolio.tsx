@@ -436,8 +436,8 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                     <div className="space-y-8">
                       <div>
                         <h2 className="text-5xl md:text-6xl font-bold mb-2 text-foreground">
-                          {project.title}
-                          <span className="text-muted-foreground">.</span>
+                            <span className="text-muted-foreground"> {project.title}</span>
+                            <span className="text-orange-500">.</span>
                         </h2>
                         <p className="text-muted-foreground text-lg">{project.category}</p>
                       </div>
@@ -505,6 +505,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                 </div>
               </div>
             )}
+              <div className="mb-20 pt-20 border-t border-border"></div>
           </div>
 
           {/* Footer */}
@@ -519,8 +520,8 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                 </div>
                 
                 <div className="flex items-center">
-                  <a href="mailto:shah@shahsyed.com" className="bg-foreground text-background px-8 py-4 rounded-full font-medium hover:bg-foreground/90 transition-colors inline-flex items-center space-x-2">
-                    <span>→</span>
+                  <a href="mailto:shah@shahsyed.com" className="group bg-foreground text-background px-8 py-4 rounded-full font-medium hover:bg-foreground/90 transition-colors inline-flex items-center space-x-2">
+                    <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
                   </a>
                 </div>
               </div>
@@ -542,7 +543,6 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                       <div className="font-medium text-foreground">{statusInfo.city}</div>
                     </div>
                   </div>
-
                   <div className="flex flex-wrap justify-center gap-3">
                     {socialLinks.map((link, index) => (
                       <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
