@@ -41,7 +41,7 @@ const BlogPost = () => {
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12 max-w-3xl">
         <h1 className="text-4xl font-bold mb-2">{post.meta.title}</h1>
-        <div className="text-sm text-muted-foreground mb-4">{post.meta.date} &middot; {post.meta.author}</div>
+        <div className="text-sm text-muted-foreground mb-4">{post.meta.date} &middot; by {post.meta.author} Syed</div>
         <div className="mb-4 text-foreground">{post.meta.description}</div>
         <div className="mb-6 flex flex-wrap gap-2">
           {post.meta.tags.map(tag => (

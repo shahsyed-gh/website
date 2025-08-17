@@ -46,7 +46,7 @@ const Blog = () => {
                   <Link to={`/blog/${post.meta.year}/${post.meta.month}/${post.meta.day}/${post.meta.slug}`} className="text-xl font-bold text-primary hover:text-primary/80 transition-colors">
                     {post.meta.title}
                   </Link>
-                  <div className="text-sm text-muted-foreground mt-1">{post.meta.date} &middot; by {post.meta.author}</div>
+                  <div className="text-sm text-muted-foreground mt-1">{post.meta.date} &middot; by {post.meta.author} Syed</div>
                   <div className="mt-2 text-foreground">{post.meta.description}</div>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {post.meta.tags.map(tag => (
