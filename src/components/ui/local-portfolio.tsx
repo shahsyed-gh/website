@@ -162,7 +162,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
   // --- DOMAIN DETECTION ---
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsShahSyedDomain(window.location.hostname === 'shahsyed.com');
+      setIsShahSyedDomain(window.location.hostname === 'shahsyed.com' || window.location.hostname === 'www.shahsyed.com');
     }
   }, []);
 
