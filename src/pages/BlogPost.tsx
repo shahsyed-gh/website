@@ -3,6 +3,7 @@ import { loadAllBlogPostsClient } from "../lib/utils";
 import NotFound from "./NotFound";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
+import rehypeRaw from "rehype-raw";
 
 const BlogPost = () => {
   const { year, month, day, slug } = useParams();
@@ -49,7 +50,36 @@ const BlogPost = () => {
           ))}
         </div>
         <article className="prose prose-lg max-w-none dark:prose-invert">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
+          <ReactMarkdown 
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              img: ({ src, alt, ...props }) => {
+                // Fix relative image paths - convert to public directory paths
+                let fixedSrc = src;
+                if (src?.startsWith('../images/')) {
+                  // Convert ../images/... to /images/...
+                  fixedSrc = src.replace('../images/', '/images/');
+                } else if (src?.startsWith('../')) {
+                  // General relative path handling
+                  fixedSrc = src.replace('../', '/');
+                }
+                return (
+                  <img 
+                    src={fixedSrc} 
+                    alt={alt} 
+                    {...props}
+                    onError={(e) => {
+                      // Fallback for missing images
+                      e.currentTarget.src = '/placeholder.svg';
+                      e.currentTarget.alt = alt + ' (image not found)';
+                    }}
+                  />
+                );
+              }
+            }}
+          >
+            {post.content}
+          </ReactMarkdown>
         </article>
       </main>
     </div>

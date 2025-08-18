@@ -1,23 +1,53 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { loadAllBlogPostsClient, type BlogPost } from "../lib/utils";
+import NotFound from "./NotFound";
 
 const Blog = () => {
+  const { year: filterYear, month: filterMonth } = useParams();
   const [postsByYear, setPostsByYear] = useState<Record<string, BlogPost[]>>({});
   const [loading, setLoading] = useState(true);
+  
+  // Validate URL parameters
+  const isValidYear = (year?: string): boolean => {
+    if (!year) return true; // No year is valid (shows all)
+    return /^\d{4}$/.test(year);
+  };
+  
+  const isValidMonth = (month?: string): boolean => {
+    if (!month) return true; // No month is valid
+    return /^(0[1-9]|1[0-2])$/.test(month);
+  };
+  
+  // Check if parameters are valid
+  if (!isValidYear(filterYear) || !isValidMonth(filterMonth)) {
+    return <NotFound />;
+  }
 
   useEffect(() => {
     loadAllBlogPostsClient().then(allPosts => {
-      const grouped = allPosts.reduce((acc, post) => {
+      let filteredPosts = allPosts;
+      
+      // Filter by year if specified
+      if (filterYear) {
+        filteredPosts = filteredPosts.filter(post => post.meta.year === filterYear);
+      }
+      
+      // Filter by month if specified
+      if (filterMonth) {
+        filteredPosts = filteredPosts.filter(post => post.meta.month === filterMonth);
+      }
+      
+      const grouped = filteredPosts.reduce((acc, post) => {
         const year = post.meta.year;
         if (!acc[year]) acc[year] = [];
         acc[year].push(post);
         return acc;
-      }, {} as Record<string, typeof allPosts>);
+      }, {} as Record<string, typeof filteredPosts>);
       setPostsByYear(grouped);
       setLoading(false);
     });
-  }, []);
+  }, [filterYear, filterMonth]);
 
   if (loading) return <div className="p-12 text-center">Loading blog posts...</div>;
 
@@ -34,12 +64,37 @@ const Blog = () => {
         </div>
       </header>
       <main className="container mx-auto px-6 py-12">
-        <h1 className="text-4xl font-bold mb-8">Gradient Check;
-            <span className="text-muted-foreground"> blogs by Shah Syed</span><span className="text-orange-500">.</span>
-        </h1>
+        <div className="mb-8">
+          {(filterYear || filterMonth) && (
+            <div className="mb-4">
+              <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                ← All blog posts
+              </Link>
+            </div>
+          )}
+          <h1 className="text-4xl font-bold">
+            Gradient Check;
+            <span className="text-muted-foreground"> blogs by Shah Syed</span>
+            <span className="text-orange-500">.</span>
+          </h1>
+          {filterYear && filterMonth && (
+            <p className="text-lg text-muted-foreground mt-2">
+              Posts from <Link to={`/blog/${filterYear}`} className="hover:text-foreground transition-colors">{filterYear}</Link>/<Link to={`/blog/${filterYear}/${filterMonth}`} className="hover:text-foreground transition-colors">{filterMonth}</Link>
+            </p>
+          )}
+          {filterYear && !filterMonth && (
+            <p className="text-lg text-muted-foreground mt-2">
+              Posts from <Link to={`/blog/${filterYear}`} className="hover:text-foreground transition-colors">{filterYear}</Link>
+            </p>
+          )}
+        </div>
         {Object.keys(postsByYear).sort((a, b) => b.localeCompare(a)).map(year => (
           <div key={year} className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">{year}</h2>
+            <h2 className="text-2xl font-semibold mb-4">
+              <Link to={`/blog/${year}`} className="hover:text-primary transition-colors cursor-pointer">
+                {year}
+              </Link>
+            </h2>
             <ul className="space-y-6">
               {postsByYear[year].map(post => (
                 <li key={post.meta.slug} className="border-b pb-4">
