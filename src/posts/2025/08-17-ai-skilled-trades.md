@@ -13,6 +13,6 @@ The skilled trades market presents compelling product opportunities as AI anxiet
 
 Strategic product development in this space requires understanding the unique value proposition of skilled trades. While AI can assist with diagnostics in automotive repair, physical implementation remains human-dependent, suggesting hybrid human-AI products rather than full replacement solutions. The key insight for PMs is positioning products as amplification tools that make skilled workers more efficient rather than threatening their job security. Products targeting training platforms, diagnostic assistance, project management for contractors, or marketplace solutions connecting skilled workers with customers could capture significant market share in an industry experiencing renewed growth and investment interest.
 
-## References
-
+---
+## Reference
 NBC News. (2025, August). Blue-collar jobs are gaining popularity as AI threatens office work. *NBC News*. https://www.nbcnews.com/business/business-news/ai-which-jobs-are-skilled-trades-protected-what-to-know-rcna223249

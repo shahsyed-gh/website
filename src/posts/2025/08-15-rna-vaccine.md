@@ -13,6 +13,6 @@ MIT's breakthrough in AI-powered nanoparticle optimization represents a paradigm
 
 The strategic implications extend far beyond development speed optimization. Pharmtech Startups can now feasibly explore previously prohibitive market segments, including oral RNA therapies for metabolic diseases like diabetes and obesity, where delivery efficiency historically limited commercial viability. The model's ability to predict cell-specific targeting and incorporate novel polymer components opens entirely new product categories while reducing late-stage development risks. With ARPA-H funding driving commercialization pathways, early-moving pharmaceutical companies can leverage this AI framework to establish competitive moats in next-generation RNA therapeutics, positioning their portfolios at the intersection of personalized medicine and scalable manufacturing.
 
-## References
-
+---
+## Reference
 Chan, A., Kirtane, A., & Traverso, G. (2025, August 15). How AI could speed the development of RNA vaccines and other RNA therapies. *MIT News*. https://news.mit.edu/2025/how-ai-could-speed-development-rna-vaccines-and-other-rna-therapies-0815

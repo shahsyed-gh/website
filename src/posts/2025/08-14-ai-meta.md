@@ -35,6 +35,5 @@ This crisis demands a fundamental shift in how we approach AI product developmen
 The path forward requires balancing innovation with responsibility, creating AI products that enhance user experiences without compromising safety. Meta's crisis is our opportunity to build better, safer, and more trustworthy AI products.
 
 ---
-
-**Reference:**  
+## Reference
 Reuters. (2025, August 14). *Meta's AI rules have let bots hold 'sensual' chats with kids, offer false medical info*. Reuters Investigates Special Report.
