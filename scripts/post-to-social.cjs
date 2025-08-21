@@ -94,7 +94,7 @@ function generateHashtags(tags) {
   if (!tags || !Array.isArray(tags)) return '';
   
   return tags
-    .map(tag => `#${tag.replace(/\s+/g, '').toLowerCase()}`)
+    .map(tag => `#${tag.replace(/[\s-]+/g, '').toLowerCase()}`)
     .join(' ');
 }
 
@@ -109,7 +109,7 @@ function formatSocialPost(post) {
   const blogUrl = generateBlogUrl(post);
   const hashtags = generateHashtags(post.tags);
   
-  let content = `New blog: ${blogUrl}\n\n${post.title}`;
+  let content = `New blog: ${post.title}\n\n${blogUrl}`;
   
   if (hashtags) {
     content += `\n\n${hashtags}`;
@@ -123,7 +123,7 @@ function formatSocialPost(post) {
       ? post.title.substring(0, availableChars - 3) + '...'
       : post.title;
     
-    content = `New blog: ${blogUrl}\n\n${truncatedTitle}`;
+    content = `New blog: ${truncatedTitle}\n\n${blogUrl}`;
     if (hashtags) {
       content += `\n\n${hashtags}`;
     }
