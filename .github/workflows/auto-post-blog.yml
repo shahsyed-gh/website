@@ -51,6 +51,6 @@ jobs:
         TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
         BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
         BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
-        WEBSITE_URL: ${{ secrets.WEBSITE_URL || 'https://your-website.com' }}
+        WEBSITE_URL: ${{ secrets.WEBSITE_URL || 'https://www.shahsyed.com' }}
       run: |
         node scripts/post-to-social.cjs "${{ steps.detect-new-posts.outputs.new_posts }}"
