@@ -56,7 +56,7 @@ const customPortfolioData: LocalPortfolioProps = {
     },
     {
       company: 'JPMorgan Chase',
-      position: 'Product Manager',
+      position: 'VP, Lead Software Engineer',
       duration: '2023 - 2024',
       location: 'Columbus, OH',
       description: 'With a history tracing its roots to 1799 in New York City, JPMorganChase is one of the world\'s oldest,' +
@@ -68,7 +68,7 @@ const customPortfolioData: LocalPortfolioProps = {
     },
     {
       company: 'Priceline',
-      position: 'Product Manager',
+      position: 'Senior Software Engineer',
       duration: '2019 - 2023',
       location: 'Toronto, ON',
       description: 'Priceline, part of Booking Holdings Inc., has been a leader in online travel for over 25 years. ' +
