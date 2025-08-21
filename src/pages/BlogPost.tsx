@@ -24,14 +24,15 @@ const BlogPost = () => {
     });
   }, [year, month, day, slug]);
 
-  // Update meta tags when post is loaded
-  useMeta({
+  const metaOptions = {
     title: post ? `${post.meta.title} — Shah Syed` : 'Shah Syed — Product Manager',
     description: post ? post.meta.description : 'Product manager that can innovate, engineer, and grow any solution.',
     ogTitle: post ? `${post.meta.title} — by Shah Syed` : 'Shah Syed — Product Manager',
     ogDescription: post ? post.meta.description : 'Product manager that can innovate, engineer, and grow any solution.',
     ogImage: post ? `/api/og?title=${encodeURIComponent(post.meta.title)}&description=${encodeURIComponent(post.meta.description)}` : '/embed.png',
-  });
+  };
+
+  useMeta(metaOptions);
 
   if (loading) return <div className="p-12 text-center">Loading post...</div>;
   if (!post) return <NotFound />;
