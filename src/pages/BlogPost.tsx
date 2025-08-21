@@ -30,6 +30,7 @@ const BlogPost = () => {
     description: post ? post.meta.description : 'Product manager that can innovate, engineer, and grow any solution.',
     ogTitle: post ? `${post.meta.title} — by Shah Syed` : 'Shah Syed — Product Manager',
     ogDescription: post ? post.meta.description : 'Product manager that can innovate, engineer, and grow any solution.',
+    ogImage: post ? `/api/og?title=${encodeURIComponent(post.meta.title)}&description=${encodeURIComponent(post.meta.description)}` : '/embed.png',
   });
 
   if (loading) return <div className="p-12 text-center">Loading post...</div>;

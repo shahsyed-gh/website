@@ -5,8 +5,10 @@ interface MetaOptions {
   description?: string;
   ogTitle?: string;
   ogDescription?: string;
+  ogImage?: string;
   twitterTitle?: string;
   twitterDescription?: string;
+  twitterImage?: string;
 }
 
 export const useMeta = (options: MetaOptions) => {
@@ -16,8 +18,10 @@ export const useMeta = (options: MetaOptions) => {
       description,
       ogTitle,
       ogDescription,
+      ogImage,
       twitterTitle,
       twitterDescription,
+      twitterImage,
     } = options;
 
     // Store original values to restore later
@@ -25,6 +29,7 @@ export const useMeta = (options: MetaOptions) => {
     const originalDescription = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
     const originalOgTitle = document.querySelector('meta[property="og:title"]')?.getAttribute('content') || '';
     const originalOgDescription = document.querySelector('meta[property="og:description"]')?.getAttribute('content') || '';
+    const originalOgImage = document.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
 
     // Update document title
     if (title) {
@@ -77,6 +82,25 @@ export const useMeta = (options: MetaOptions) => {
       metaTwitterDescription.setAttribute('content', twitterDescription || ogDescription || '');
     }
 
+    // Update Open Graph image
+    if (ogImage) {
+      const metaOgImage = document.querySelector('meta[property="og:image"]');
+      if (metaOgImage) {
+        metaOgImage.setAttribute('content', ogImage);
+      }
+    }
+
+    // Update Twitter image (use og:image if no specific twitter:image exists)
+    if (twitterImage || ogImage) {
+      let metaTwitterImage = document.querySelector('meta[name="twitter:image"]');
+      if (!metaTwitterImage) {
+        metaTwitterImage = document.createElement('meta');
+        metaTwitterImage.setAttribute('name', 'twitter:image');
+        document.head.appendChild(metaTwitterImage);
+      }
+      metaTwitterImage.setAttribute('content', twitterImage || ogImage || '');
+    }
+
     // Cleanup function to restore original values
     return () => {
       document.title = originalTitle;
@@ -96,6 +120,11 @@ export const useMeta = (options: MetaOptions) => {
         metaOgDescription.setAttribute('content', originalOgDescription);
       }
 
+      const metaOgImage = document.querySelector('meta[property="og:image"]');
+      if (metaOgImage) {
+        metaOgImage.setAttribute('content', originalOgImage);
+      }
+
       // Remove Twitter-specific meta tags we may have added
       const metaTwitterTitle = document.querySelector('meta[name="twitter:title"]');
       if (metaTwitterTitle) {
@@ -106,6 +135,11 @@ export const useMeta = (options: MetaOptions) => {
       if (metaTwitterDescription) {
         metaTwitterDescription.remove();
       }
+
+      const metaTwitterImage = document.querySelector('meta[name="twitter:image"]');
+      if (metaTwitterImage) {
+        metaTwitterImage.remove();
+      }
     };
-  }, [options.title, options.description, options.ogTitle, options.ogDescription, options.twitterTitle, options.twitterDescription]);
+  }, [options.title, options.description, options.ogTitle, options.ogDescription, options.ogImage, options.twitterTitle, options.twitterDescription, options.twitterImage]);
 };
