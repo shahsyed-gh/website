@@ -4,6 +4,7 @@ import NotFound from "./NotFound";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 import rehypeRaw from "rehype-raw";
+import { useMeta } from "../hooks/useMeta";
 
 const BlogPost = () => {
   const { year, month, day, slug } = useParams();
@@ -22,6 +23,14 @@ const BlogPost = () => {
       setLoading(false);
     });
   }, [year, month, day, slug]);
+
+  // Update meta tags when post is loaded
+  useMeta({
+    title: post ? `${post.meta.title} — Shah Syed` : 'Shah Syed — Product Manager',
+    description: post ? post.meta.description : 'Product manager that can innovate, engineer, and grow any solution.',
+    ogTitle: post ? `${post.meta.title} — by Shah Syed` : 'Shah Syed — Product Manager',
+    ogDescription: post ? post.meta.description : 'Product manager that can innovate, engineer, and grow any solution.',
+  });
 
   if (loading) return <div className="p-12 text-center">Loading post...</div>;
   if (!post) return <NotFound />;
