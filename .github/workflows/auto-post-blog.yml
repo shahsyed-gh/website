@@ -3,14 +3,13 @@ name: Auto Post New Blog Posts
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ['Deploy app']
+    workflows: ['Fly Deploy']
     types: [completed]
-    paths:
-      - 'src/posts/**/*.md'
 
 jobs:
   post-to-social:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
     
     steps:
     - name: Checkout repository
