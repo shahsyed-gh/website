@@ -24,66 +24,6 @@ async function postToTwitter(content) {
   }
 }
 
-// Extract URLs and hashtags from text and create facets for Bluesky
-function createFacets(text) {
-  const facets = [];
-  
-  // Handle URLs
-  const urlRegex = /https?:\/\/[^\s]+/g;
-  let match;
-  
-  while ((match = urlRegex.exec(text)) !== null) {
-    const url = match[0];
-    const startIndex = match.index;
-    const endIndex = match.index + url.length;
-    
-    // Convert character indices to byte indices
-    const beforeText = text.substring(0, startIndex);
-    const urlText = text.substring(startIndex, endIndex);
-    const byteStart = Buffer.from(beforeText, 'utf-8').length;
-    const byteEnd = byteStart + Buffer.from(urlText, 'utf-8').length;
-    
-    facets.push({
-      index: {
-        byteStart,
-        byteEnd
-      },
-      features: [{
-        $type: 'app.bsky.richtext.facet#link',
-        uri: url
-      }]
-    });
-  }
-  
-  // Handle hashtags
-  const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-  hashtagRegex.lastIndex = 0; // Reset regex state
-  
-  while ((match = hashtagRegex.exec(text)) !== null) {
-    const hashtag = match[0];
-    const startIndex = match.index;
-    const endIndex = match.index + hashtag.length;
-    
-    // Convert character indices to byte indices
-    const beforeText = text.substring(0, startIndex);
-    const hashtagText = text.substring(startIndex, endIndex);
-    const byteStart = Buffer.from(beforeText, 'utf-8').length;
-    const byteEnd = byteStart + Buffer.from(hashtagText, 'utf-8').length;
-    
-    facets.push({
-      index: {
-        byteStart,
-        byteEnd
-      },
-      features: [{
-        $type: 'app.bsky.richtext.facet#tag',
-        tag: hashtag.substring(1) // Remove the # from the tag value
-      }]
-    });
-  }
-  
-  return facets;
-}
 
 // Fetch URL metadata for link card embeds
 async function fetchUrlMetadata(url) {
@@ -203,7 +143,7 @@ async function createBlueskyEmbed(agent, url) {
 
 // Bluesky API client
 async function postToBluesky(content) {
-  const { AtpAgent } = await import('@atproto/api');
+  const { AtpAgent, RichText } = await import('@atproto/api');
   
   const agent = new AtpAgent({
     service: 'https://bsky.social'
@@ -215,17 +155,15 @@ async function postToBluesky(content) {
       password: process.env.BLUESKY_PASSWORD,
     });
 
-    const facets = createFacets(content);
+    // Use RichText for proper facet detection (links, mentions, hashtags)
+    const rt = new RichText({ text: content });
+    await rt.detectFacets(agent);
     
     const postData = {
-      text: content,
+      text: rt.text,
+      facets: rt.facets,
       createdAt: new Date().toISOString(),
     };
-    
-    // Only include facets if there are any
-    if (facets.length > 0) {
-      postData.facets = facets;
-    }
 
     // Extract URLs from content to create embed cards
     const urlRegex = /https?:\/\/[^\s]+/g;
