@@ -3,8 +3,40 @@ const path = require('path');
 const https = require('https');
 const http = require('http');
 
+// Upload image to Twitter
+async function uploadImageToTwitter(client, imageUrl) {
+  return new Promise((resolve, reject) => {
+    const protocol = imageUrl.startsWith('https:') ? https : http;
+    
+    const req = protocol.get(imageUrl, (res) => {
+      if (res.statusCode !== 200) {
+        reject(new Error(`Failed to fetch image: ${res.statusCode}`));
+        return;
+      }
+      
+      const chunks = [];
+      res.on('data', chunk => chunks.push(chunk));
+      res.on('end', async () => {
+        try {
+          const buffer = Buffer.concat(chunks);
+          const mediaUpload = await client.v1.uploadMedia(buffer, { mimeType: res.headers['content-type'] || 'image/jpeg' });
+          resolve(mediaUpload);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+    
+    req.on('error', reject);
+    req.setTimeout(10000, () => {
+      req.destroy();
+      reject(new Error('Image request timeout'));
+    });
+  });
+}
+
 // Twitter API v2 client
-async function postToTwitter(content) {
+async function postToTwitter(content, imageUrl = null) {
   const { TwitterApi } = await import('twitter-api-v2');
   
   const client = new TwitterApi({
@@ -15,7 +47,25 @@ async function postToTwitter(content) {
   });
 
   try {
-    const result = await client.v2.tweet(content);
+    let mediaIds = [];
+    
+    // Upload image if provided
+    if (imageUrl) {
+      try {
+        const mediaUpload = await uploadImageToTwitter(client, imageUrl);
+        mediaIds.push(mediaUpload);
+        console.log('✅ Image uploaded to Twitter');
+      } catch (imageError) {
+        console.warn('⚠️ Failed to upload image, posting without image:', imageError.message);
+      }
+    }
+    
+    const tweetOptions = { text: content };
+    if (mediaIds.length > 0) {
+      tweetOptions.media = { media_ids: mediaIds };
+    }
+    
+    const result = await client.v2.tweet(tweetOptions);
     console.log('✅ Posted to Twitter:', result.data.id);
     return result;
   } catch (error) {
@@ -242,6 +292,23 @@ function generateBlogUrl(post) {
   return `${baseUrl}/blog/${post.year}/${post.month}/${post.day}/${post.slug}`;
 }
 
+// Generate blog post image URL
+function generateBlogImageUrl(post) {
+  const baseUrl = process.env.WEBSITE_URL || 'https://your-website.com';
+  // Use post.image if available, otherwise fall back to default embed.png
+  if (post.image) {
+    // Handle both relative and absolute image paths
+    if (post.image.startsWith('http')) {
+      return post.image;
+    } else if (post.image.startsWith('/')) {
+      return `${baseUrl}${post.image}`;
+    } else {
+      return `${baseUrl}/${post.image}`;
+    }
+  }
+  return `${baseUrl}/embed.png`;
+}
+
 // Format social media post
 function formatSocialPost(post) {
   const blogUrl = generateBlogUrl(post);
@@ -297,12 +364,14 @@ async function main() {
       console.log(`🏷️  Tags: ${post.tags ? post.tags.join(', ') : 'None'}`);
       
       const socialContent = formatSocialPost(post);
+      const imageUrl = generateBlogImageUrl(post);
       console.log(`📱 Social media content:\n${socialContent}`);
+      console.log(`🖼️  Image URL: ${imageUrl}`);
       
       // Post to Twitter
       if (process.env.TWITTER_API_KEY && process.env.TWITTER_API_SECRET) {
         try {
-          await postToTwitter(socialContent);
+          await postToTwitter(socialContent, imageUrl);
         } catch (error) {
           console.error('Twitter posting failed, continuing with other platforms...');
         }
@@ -332,4 +401,4 @@ if (require.main === module) {
   main().catch(console.error);
 }
 
-module.exports = { parseBlogPost, formatSocialPost, generateHashtags, generateBlogUrl };
+module.exports = { parseBlogPost, formatSocialPost, generateHashtags, generateBlogUrl, generateBlogImageUrl };

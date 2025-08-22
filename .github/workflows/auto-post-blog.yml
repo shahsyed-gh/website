@@ -1,8 +1,10 @@
 name: Auto Post New Blog Posts
 
 on:
-  push:
-    branches: [master, main]
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Deploy app']
+    types: [completed]
     paths:
       - 'src/posts/**/*.md'
 
