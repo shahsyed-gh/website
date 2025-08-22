@@ -21,5 +21,4 @@ The traditional AI conference model, based on centralized, in-person mega-events
 The challenges faced by AI conferences mirror what happens when products, platforms, or communities scale without structural change. Relying on incremental fixes such as caps or temporary multi-site setups addresses symptoms, not causes. By thinking in terms of modular, federated systems, product leaders can create sustainable growth that maintains quality, inclusivity, and user trust.
 
 ---
-## Reference
-Chen, N., Duan, M., Lin, A. H., Wang, Q., Wu, J., & He, B. (2025). *Position: The current AI conference model is unsustainable! Diagnosing the crisis of centralized AI conference*. arXiv. https://arxiv.org/abs/2508.04586
+Reference: Chen, N., Duan, M., Lin, A. H., Wang, Q., Wu, J., & He, B. (2025). *Position: The current AI conference model is unsustainable! Diagnosing the crisis of centralized AI conference*. arXiv. https://arxiv.org/abs/2508.04586

@@ -22,11 +22,43 @@ async function postToTwitter(content) {
   }
 }
 
+// Extract URLs from text and create facets for Bluesky
+function createFacets(text) {
+  const facets = [];
+  const urlRegex = /https?:\/\/[^\s]+/g;
+  let match;
+  
+  while ((match = urlRegex.exec(text)) !== null) {
+    const url = match[0];
+    const startIndex = match.index;
+    const endIndex = match.index + url.length;
+    
+    // Convert character indices to byte indices
+    const beforeText = text.substring(0, startIndex);
+    const urlText = text.substring(startIndex, endIndex);
+    const byteStart = Buffer.from(beforeText, 'utf-8').length;
+    const byteEnd = byteStart + Buffer.from(urlText, 'utf-8').length;
+    
+    facets.push({
+      index: {
+        byteStart,
+        byteEnd
+      },
+      features: [{
+        $type: 'app.bsky.richtext.facet#link',
+        uri: url
+      }]
+    });
+  }
+  
+  return facets;
+}
+
 // Bluesky API client
 async function postToBluesky(content) {
-  const { BskyAgent } = await import('@atproto/api');
+  const { AtpAgent } = await import('@atproto/api');
   
-  const agent = new BskyAgent({
+  const agent = new AtpAgent({
     service: 'https://bsky.social'
   });
 
@@ -36,10 +68,19 @@ async function postToBluesky(content) {
       password: process.env.BLUESKY_PASSWORD,
     });
 
-    const result = await agent.post({
+    const facets = createFacets(content);
+    
+    const postData = {
       text: content,
       createdAt: new Date().toISOString(),
-    });
+    };
+    
+    // Only include facets if there are any
+    if (facets.length > 0) {
+      postData.facets = facets;
+    }
+
+    const result = await agent.post(postData);
     
     console.log('✅ Posted to Bluesky:', result.uri);
     return result;
@@ -109,7 +150,7 @@ function formatSocialPost(post) {
   const blogUrl = generateBlogUrl(post);
   const hashtags = generateHashtags(post.tags);
   
-  let content = `New blog: ${post.title}\n\n${blogUrl}`;
+  let content = `New blog post: ${post.title}\n\n${blogUrl}`;
   
   if (hashtags) {
     content += `\n\n${hashtags}`;
@@ -118,12 +159,12 @@ function formatSocialPost(post) {
   // Check Twitter character limit (280 chars)
   if (content.length > 280) {
     // Truncate title if needed
-    const availableChars = 280 - blogUrl.length - (hashtags ? hashtags.length + 2 : 0) - 15; // "New blog: " + newlines
+    const availableChars = 280 - blogUrl.length - (hashtags ? hashtags.length + 2 : 0) - 15; // "New blog post: " + newlines
     const truncatedTitle = post.title.length > availableChars 
       ? post.title.substring(0, availableChars - 3) + '...'
       : post.title;
     
-    content = `New blog: ${truncatedTitle}\n\n${blogUrl}`;
+    content = `New blog post: ${truncatedTitle}\n\n${blogUrl}`;
     if (hashtags) {
       content += `\n\n${hashtags}`;
     }

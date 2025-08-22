@@ -123,7 +123,7 @@ This will:
    ```
 3. Run the script:
    ```bash
-   node scripts/post-to-social.cjs "src/posts/2025/08-21-test-post.md"
+   node scripts/post-to-social.cjs "08-22-ai_inference_efficiency.md"
    ```
 
 ### Test via GitHub Actions
