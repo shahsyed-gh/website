@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
+const http = require('http');
 
 // Twitter API v2 client
 async function postToTwitter(content) {
@@ -22,9 +24,11 @@ async function postToTwitter(content) {
   }
 }
 
-// Extract URLs from text and create facets for Bluesky
+// Extract URLs and hashtags from text and create facets for Bluesky
 function createFacets(text) {
   const facets = [];
+  
+  // Handle URLs
   const urlRegex = /https?:\/\/[^\s]+/g;
   let match;
   
@@ -51,7 +55,150 @@ function createFacets(text) {
     });
   }
   
+  // Handle hashtags
+  const hashtagRegex = /#[a-zA-Z0-9_]+/g;
+  hashtagRegex.lastIndex = 0; // Reset regex state
+  
+  while ((match = hashtagRegex.exec(text)) !== null) {
+    const hashtag = match[0];
+    const startIndex = match.index;
+    const endIndex = match.index + hashtag.length;
+    
+    // Convert character indices to byte indices
+    const beforeText = text.substring(0, startIndex);
+    const hashtagText = text.substring(startIndex, endIndex);
+    const byteStart = Buffer.from(beforeText, 'utf-8').length;
+    const byteEnd = byteStart + Buffer.from(hashtagText, 'utf-8').length;
+    
+    facets.push({
+      index: {
+        byteStart,
+        byteEnd
+      },
+      features: [{
+        $type: 'app.bsky.richtext.facet#tag',
+        tag: hashtag.substring(1) // Remove the # from the tag value
+      }]
+    });
+  }
+  
   return facets;
+}
+
+// Fetch URL metadata for link card embeds
+async function fetchUrlMetadata(url) {
+  return new Promise((resolve, reject) => {
+    const client = url.startsWith('https:') ? https : http;
+    
+    const req = client.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; BlogBot/1.0)'
+      }
+    }, (res) => {
+      if (res.statusCode !== 200) {
+        reject(new Error(`Failed to fetch ${url}: ${res.statusCode}`));
+        return;
+      }
+      
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          // Extract title
+          const titleMatch = data.match(/<title[^>]*>([^<]+)<\/title>/i) || 
+                            data.match(/<meta[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["']/i);
+          const title = titleMatch ? titleMatch[1].trim() : 'Link';
+          
+          // Extract description
+          const descMatch = data.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i) ||
+                           data.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["']/i);
+          const description = descMatch ? descMatch[1].trim() : '';
+          
+          // Extract image
+          const imageMatch = data.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i);
+          const image = imageMatch ? imageMatch[1].trim() : null;
+          
+          resolve({ title, description, image, uri: url });
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+    
+    req.on('error', reject);
+    req.setTimeout(10000, () => {
+      req.destroy();
+      reject(new Error('Request timeout'));
+    });
+  });
+}
+
+// Upload image to Bluesky
+async function uploadImageToBluesky(agent, imageUrl) {
+  return new Promise((resolve, reject) => {
+    const client = imageUrl.startsWith('https:') ? https : http;
+    
+    const req = client.get(imageUrl, (res) => {
+      if (res.statusCode !== 200) {
+        reject(new Error(`Failed to fetch image: ${res.statusCode}`));
+        return;
+      }
+      
+      const chunks = [];
+      res.on('data', chunk => chunks.push(chunk));
+      res.on('end', async () => {
+        try {
+          const buffer = Buffer.concat(chunks);
+          const contentType = res.headers['content-type'] || 'image/jpeg';
+          
+          const response = await agent.uploadBlob(buffer, {
+            encoding: contentType
+          });
+          
+          resolve(response.data.blob);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+    
+    req.on('error', reject);
+    req.setTimeout(10000, () => {
+      req.destroy();
+      reject(new Error('Image request timeout'));
+    });
+  });
+}
+
+// Create embed card for Bluesky
+async function createBlueskyEmbed(agent, url) {
+  try {
+    const metadata = await fetchUrlMetadata(url);
+    
+    const embed = {
+      $type: 'app.bsky.embed.external',
+      external: {
+        uri: url,
+        title: metadata.title,
+        description: metadata.description || ''
+      }
+    };
+    
+    // Add thumb if image is available
+    if (metadata.image) {
+      try {
+        const thumb = await uploadImageToBluesky(agent, metadata.image);
+        embed.external.thumb = thumb;
+      } catch (imageError) {
+        console.warn('Failed to upload image, continuing without thumb:', imageError.message);
+      }
+    }
+    
+    return embed;
+  } catch (error) {
+    console.warn('Failed to create embed card:', error.message);
+    return null;
+  }
 }
 
 // Bluesky API client
@@ -78,6 +225,18 @@ async function postToBluesky(content) {
     // Only include facets if there are any
     if (facets.length > 0) {
       postData.facets = facets;
+    }
+
+    // Extract URLs from content to create embed cards
+    const urlRegex = /https?:\/\/[^\s]+/g;
+    const urls = content.match(urlRegex);
+    
+    if (urls && urls.length > 0) {
+      // Use the first URL for embed card (Bluesky supports one embed per post)
+      const embed = await createBlueskyEmbed(agent, urls[0]);
+      if (embed) {
+        postData.embed = embed;
+      }
     }
 
     const result = await agent.post(postData);
