@@ -29,7 +29,8 @@ const BlogPost = () => {
     description: post ? post.meta.description : 'Product manager that can innovate, engineer, and grow any solution.',
     ogTitle: post ? `${post.meta.title} — by Shah Syed` : 'Shah Syed — Product Manager',
     ogDescription: post ? post.meta.description : 'Product manager that can innovate, engineer, and grow any solution.',
-    ogImage: post ? `/api/og?title=${encodeURIComponent(post.meta.title)}&description=${encodeURIComponent(post.meta.description)}` : '/embed.png',
+    ogImage: '/embed.png', // Using static image until OG API is fixed
+    twitterImage: '/embed.png', // Explicitly set Twitter image
   };
 
   useMeta(metaOptions);
