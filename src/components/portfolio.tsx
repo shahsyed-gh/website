@@ -56,7 +56,7 @@ const customPortfolioData: LocalPortfolioProps = {
     },
     {
       company: 'JPMorgan Chase',
-      position: 'VP, Lead Software Engineer',
+      position: 'Lead Software Engineer',
       duration: '2023 - 2024',
       location: 'Columbus, OH',
       description: 'With a history tracing its roots to 1799 in New York City, JPMorganChase is one of the world\'s oldest,' +
