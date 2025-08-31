@@ -18,13 +18,14 @@ const customPortfolioData: LocalPortfolioProps = {
     city: 'Columbus, Ohio'
   },
   socialLinks: [
-      { icon: <img src={blogIcon} alt="Blog" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: '/blog' },
-    { icon: <img src={linkedinIcon} alt="LinkedIn" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://linkedin.com/in/shahsyedmba' },
-    { icon: <img src={instagramIcon} alt="Instagram" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://instagram.com/engineeringpm' },
-    { icon: <img src={emailIcon} alt="Email" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'mailto:shah@shahsyed.com' },
-    { icon: <img src={twitterIcon} alt="Twitter" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://twitter.com/pmengineer' },
-    { icon: <img src={blueskyIcon} alt="Website" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://bsky.app/profile/engineeringpm.bsky.social' },
-    { icon: <img src={tiktokIcon} alt="TikTok" className="w-4 h-4 grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://tiktok.com/@engineeringpm' },
+    { icon: <img src={blogIcon} alt="Blog" className="w-[21px] h-[21px] grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: '/blog' },
+    { icon: <img src={linkedinIcon} alt="LinkedIn" className="w-[21px] h-[21px] grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://linkedin.com/in/shahsyedmba' },
+    { icon: <svg className="w-[21px] h-[21px] grayscale hover:grayscale-0 transition-all duration-300 dark:invert hover:!text-red-600 dark:hover:!invert-0" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>, href: 'https://youtube.com/@engineeringpm' },
+    { icon: <img src={instagramIcon} alt="Instagram" className="w-[21px] h-[21px] grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://instagram.com/engineeringpm' },
+    { icon: <img src={tiktokIcon} alt="TikTok" className="w-[21px] h-[21px] grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://tiktok.com/@engineeringpm' },
+      // { icon: <img src={twitterIcon} alt="Twitter" className="w-[21px] h-[21px] grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://twitter.com/pmengineer' },
+    { icon: <img src={blueskyIcon} alt="BlueSky" className="w-[21px] h-[21px] grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://bsky.app/profile/engineeringpm.bsky.social' },
+    { icon: <img src={emailIcon} alt="Email" className="w-[21px] h-[21px] grayscale hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'mailto:shah@shahsyed.com' }
   ],
   navLinks: [
     { label: 'Shah Syed', href: '#about' },
@@ -85,9 +86,12 @@ const customPortfolioData: LocalPortfolioProps = {
       challenge: 'Applied product requirements gathering and user experience optimization to redesign my portfolio with' +
           ' integrated analytics tracking and content management, using data-driven design decisions and stakeholder ' +
           'feedback to improve site performance and user engagement metrics.',
-      approach: 'I am in the process of uploading a YouTube video to explain exactly what I did! Stay tuned!',
+      approach: 'The process began by creating a comprehensive PRD using established templates (like Lenny\'s newsletter one-pager) that clearly defined the product vision and user needs before jumping into development.\n' +
+          '\n' +
+          'AI tools like Lovable were used to rapidly prototype and test the portfolio, focusing on responsive design across devices (desktop, tablet, mobile) to ensure optimal user experience regardless of platform.\n' +
+          '\n',
       result: 'Launched a comprehensive analytics based portfolio using AI that tracks user visits, sees how people are engaging with my website, so that I can grow my personal brand.',
-      imageUrl: 'projects/proj-portfolio.png'
+      videoUrl: 'https://www.youtube.com/embed/6Gfdp26yVoU?si=AQJEy8U8Y3dPYmCD'
     },
     {
       title: 'SocialSpark',
