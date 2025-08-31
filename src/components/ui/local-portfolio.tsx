@@ -359,80 +359,12 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
               </p>
             </div>
 
-            {/* Work Experience Section */}
-            {workExperience && workExperience.length > 0 && (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20 pt-20 border-t border-border">
-                {/* Left Column - Heading and Description */}
-                <div>
-                  <h2 className="text-5xl md:text-6xl font-bold mb-8 text-foreground">Work
-                      <span className="text-muted-foreground"> Experience</span>
-                    <span className="text-orange-500">.</span>
-                  </h2>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
-
-                  </p>
-                </div>
-
-                {/* Right Column - Experience Entries with Timeline */}
-                <div className="relative space-y-12">
-                  {/* Timeline Line - Hidden on mobile, visible on sm+ */}
-                  <div className="hidden sm:block absolute left-5 top-5 bottom-0 w-0.5 bg-border"></div>
-                  
-                  {workExperience.map((experience, index) => (
-                    <div key={index} className="relative">
-                      <div className="flex items-start space-x-6">
-                        <div className="flex-shrink-0 relative z-20 flex items-center mt-4">
-                          {experience.icon}
-                        </div>
-                        <div className="flex-grow bg-background/50 backdrop-blur-sm rounded-lg border border-border shadow-lg hover:shadow-xl transition-all duration-300 hover:border-orange-500/20 p-6 relative overflow-hidden">
-                          {/* Subtle gradient overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                          
-                          <div className="relative z-10">
-                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3">
-                              <h3 className="text-xl font-bold text-foreground">
-                                {experience.company}
-                                <span className="text-muted-foreground block text-lg font-semibold mt-1">{experience.position}</span>
-                              </h3>
-                            </div>
-                            
-                            <div className="flex flex-col gap-2 text-sm text-muted-foreground mb-4">
-                              <div className="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500">
-                                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                                  <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span>{experience.location}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500">
-                                  <path d="M8 2v4"></path>
-                                  <path d="M16 2v4"></path>
-                                  <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                                  <path d="M3 10h18"></path>
-                                </svg>
-                                <span>{experience.duration}</span>
-                              </div>
-                            </div>
-                            
-                            <p className="text-muted-foreground leading-relaxed pl-4 border-l-2 border-orange-500/20">
-                              {experience.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Side Projects Section */}
+            {/* Current Projects Section */}
             <div className="mb-20 pt-20 border-t border-border">
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                 Here are
                 <br />
-                my <span className="text-muted-foreground">side</span>
+                my <span className="text-muted-foreground">current</span>
                 <br />
                 projects<span className="text-orange-500">.</span>
               </h2>
@@ -579,6 +511,74 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                 })}
               </div>
             )}
+
+              {/* Work Experience Section */}
+              {workExperience && workExperience.length > 0 && (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20 pt-20 border-t border-border">
+                      {/* Left Column - Heading and Description */}
+                      <div>
+                          <h2 className="text-5xl md:text-6xl font-bold mb-8 text-foreground">Work
+                              <span className="text-muted-foreground"> Experience</span>
+                              <span className="text-orange-500">.</span>
+                          </h2>
+                          <p className="text-muted-foreground text-lg leading-relaxed">
+
+                          </p>
+                      </div>
+
+                      {/* Right Column - Experience Entries with Timeline */}
+                      <div className="relative space-y-12">
+                          {/* Timeline Line - Hidden on mobile, visible on sm+ */}
+                          <div className="hidden sm:block absolute left-5 top-5 bottom-0 w-0.5 bg-border"></div>
+
+                          {workExperience.map((experience, index) => (
+                              <div key={index} className="relative">
+                                  <div className="flex items-start space-x-6">
+                                      <div className="flex-shrink-0 relative z-20 flex items-center mt-4">
+                                          {experience.icon}
+                                      </div>
+                                      <div className="flex-grow bg-background/50 backdrop-blur-sm rounded-lg border border-border shadow-lg hover:shadow-xl transition-all duration-300 hover:border-orange-500/20 p-6 relative overflow-hidden">
+                                          {/* Subtle gradient overlay */}
+                                          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+
+                                          <div className="relative z-10">
+                                              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3">
+                                                  <h3 className="text-xl font-bold text-foreground">
+                                                      {experience.company}
+                                                      <span className="text-muted-foreground block text-lg font-semibold mt-1">{experience.position}</span>
+                                                  </h3>
+                                              </div>
+
+                                              <div className="flex flex-col gap-2 text-sm text-muted-foreground mb-4">
+                                                  <div className="flex items-center gap-1">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500">
+                                                          <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                                                          <circle cx="12" cy="10" r="3"></circle>
+                                                      </svg>
+                                                      <span>{experience.location}</span>
+                                                  </div>
+                                                  <div className="flex items-center gap-1">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500">
+                                                          <path d="M8 2v4"></path>
+                                                          <path d="M16 2v4"></path>
+                                                          <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                                                          <path d="M3 10h18"></path>
+                                                      </svg>
+                                                      <span>{experience.duration}</span>
+                                                  </div>
+                                              </div>
+
+                                              <p className="text-muted-foreground leading-relaxed pl-4 border-l-2 border-orange-500/20">
+                                                  {experience.description}
+                                              </p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          ))}
+                      </div>
+                  </div>
+              )}
 
             {/* Previously Worked At Section */}
             {companies && companies.length > 0 && (
