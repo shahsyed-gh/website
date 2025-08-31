@@ -111,6 +111,7 @@ const customPortfolioData: LocalPortfolioProps = {
     { name: 'JPMorgan', logo: <img src="logos/jpmorgan.jpg" alt="JPMorgan Chase" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> },
     { name: 'Priceline', logo: <img src="logos/priceline.jpg" alt="Priceline" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> },
     { name: 'TD', logo: <img src="logos/td.jpg" alt="TD Bank" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> },
+    { name: 'Nielsen', logo: <img src="logos/nielsen.jpg" alt="Nielsen" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> },
     { name: 'Ryerson', logo: <img src="logos/ryerson.jpg" alt="Ryerson University" className="h-12 w-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> }
   ],
   showAnimatedBackground: false,
