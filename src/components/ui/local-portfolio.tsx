@@ -32,6 +32,7 @@ interface Project {
   approach: string;
   result: string;
   imageUrl?: string;
+  videoUrl?: string;
 }
 interface Company {
   name: string;
@@ -247,7 +248,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
               
               <div className="flex flex-wrap justify-center gap-3">
                 {socialLinks.map((link, index) => (
-                  <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                  <a key={index} href={link.href} className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
                     <span className="text-sm">{link.icon}</span>
                   </a>
                 ))}
@@ -294,7 +295,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
 
               <div className="flex items-center space-x-4">
                 {socialLinks.map((link, index) => (
-                  <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                  <a key={index} href={link.href} className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
                     <span className="text-sm">{link.icon}</span>
                   </a>
                 ))}
@@ -372,27 +373,52 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                   </p>
                 </div>
 
-                {/* Right Column - Experience Entries */}
-                <div className="space-y-12">
+                {/* Right Column - Experience Entries with Timeline */}
+                <div className="relative space-y-12">
+                  {/* Timeline Line - Hidden on mobile, visible on sm+ */}
+                  <div className="hidden sm:block absolute left-5 top-5 bottom-0 w-0.5 bg-border"></div>
+                  
                   {workExperience.map((experience, index) => (
                     <div key={index} className="relative">
-                      <div className="flex items-start space-x-4">
-                        <div className="flex-shrink-0 mt-1">
+                      <div className="flex items-start space-x-6">
+                        <div className="flex-shrink-0 relative z-20 flex items-center mt-4">
                           {experience.icon}
                         </div>
-                        <div className="flex-grow">
-                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                            <h3 className="text-xl font-bold text-foreground">
-                              {experience.company}
-                                <span className="text-muted-foreground"><br/>{experience.position}</span>
-                            </h3>
+                        <div className="flex-grow bg-background/50 backdrop-blur-sm rounded-lg border border-border shadow-lg hover:shadow-xl transition-all duration-300 hover:border-orange-500/20 p-6 relative overflow-hidden">
+                          {/* Subtle gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                          
+                          <div className="relative z-10">
+                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3">
+                              <h3 className="text-xl font-bold text-foreground">
+                                {experience.company}
+                                <span className="text-muted-foreground block text-lg font-semibold mt-1">{experience.position}</span>
+                              </h3>
+                            </div>
+                            
+                            <div className="flex flex-col gap-2 text-sm text-muted-foreground mb-4">
+                              <div className="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500">
+                                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>{experience.location}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500">
+                                  <path d="M8 2v4"></path>
+                                  <path d="M16 2v4"></path>
+                                  <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                                  <path d="M3 10h18"></path>
+                                </svg>
+                                <span>{experience.duration}</span>
+                              </div>
+                            </div>
+                            
+                            <p className="text-muted-foreground leading-relaxed pl-4 border-l-2 border-orange-500/20">
+                              {experience.description}
+                            </p>
                           </div>
-                          <div className="text-muted-foreground text-sm mb-4">
-                            {experience.duration} - {experience.location}
-                          </div>
-                          <p className="text-muted-foreground leading-relaxed">
-                            {experience.description}
-                          </p>
                         </div>
                       </div>
                     </div>
@@ -412,71 +438,139 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
               </h2>
             </div>
 
-            {/* Projects Section */}
+            {/* Projects Section with Timeline */}
             {projects && projects.length > 0 && (
-              <div className="mb-20">
+              <div className="mb-20 relative">
+                {/* Timeline Line - Hidden on mobile, visible on lg+ */}
+                <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-border h-full"></div>
+                
                 {projects.map((project, index) => {
                   const isEven = index % 2 === 0;
                   
+                  const TimelineDot = (
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-background border-4 border-orange-500 rounded-full shadow-lg z-10"></div>
+                  );
+
+                  // Helper function to convert YouTube URLs to embeddable format
+                  const getEmbedUrl = (url: string) => {
+                    // Handle YouTube clip URLs
+                    if (url.includes('youtube.com/clip/')) {
+                      const clipId = url.split('/').pop();
+                      return `https://www.youtube.com/embed/${clipId}`;
+                    }
+                    // Handle regular YouTube URLs
+                    if (url.includes('youtube.com/watch?v=')) {
+                      const videoId = url.split('v=')[1]?.split('&')[0];
+                      return `https://www.youtube.com/embed/${videoId}`;
+                    }
+                    // Handle youtu.be URLs
+                    if (url.includes('youtu.be/')) {
+                      const videoId = url.split('youtu.be/')[1]?.split('?')[0];
+                      return `https://www.youtube.com/embed/${videoId}`;
+                    }
+                    // Return original URL if no conversion needed
+                    return url;
+                  };
+
                   const ImageColumn = (
-                    <div>
-                      {project.imageUrl && (
-                        <div className="w-full aspect-[4/3] bg-muted rounded-lg overflow-hidden">
+                    <div className="relative">
+                      {project.videoUrl ? (
+                        <div className="w-full aspect-[16/9] bg-muted rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                          <iframe
+                            src={getEmbedUrl(project.videoUrl)}
+                            title="YouTube video player"
+                            className="w-full h-full border-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                          />
+                        </div>
+                      ) : project.imageUrl ? (
+                        <div className="w-full aspect-[4/3] bg-muted rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                           <img 
                             src={project.imageUrl} 
                             alt={project.title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                           />
                         </div>
-                      )}
+                      ) : null}
                     </div>
                   );
 
                   const DetailsColumn = (
-                    <div className="space-y-8">
-                      <div>
-                        <h2 className="text-5xl md:text-6xl font-bold mb-2 text-foreground">
-                            <span className="text-muted-foreground"> {project.title}</span>
-                            <span className="text-orange-500">.</span>
-                        </h2>
-                        <p className="text-muted-foreground text-lg">{project.category}</p>
-                      </div>
+                    <div className="space-y-6 p-8 bg-background/50 backdrop-blur-sm rounded-lg border border-border shadow-lg hover:shadow-xl transition-all duration-300 hover:border-orange-500/20 relative overflow-hidden">
+                      {/* Subtle gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                      <div className="relative z-10">
+                        <div>
+                          <h2 className="text-4xl md:text-5xl font-bold mb-2 text-foreground">
+                              <span className="text-muted-foreground">{project.title}</span>
+                              <span className="text-orange-500">.</span>
+                          </h2>
+                          <p className="text-orange-500 text-lg font-medium">{project.category}</p>
+                        </div>
 
-                      <div>
-                        <h3 className="text-xl font-bold mb-4 text-foreground">Challenge</h3>
-                        <p className="text-muted-foreground leading-relaxed mb-8">
-                          {project.challenge}
-                        </p>
-                      </div>
+                        <div className="space-y-6">
+                          <div>
+                            <h3 className="text-xl font-bold mb-3 text-foreground flex items-center gap-2">
+                              <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                              Challenge
+                            </h3>
+                            <p className="text-muted-foreground leading-relaxed pl-4 border-l-2 border-orange-500/20">
+                              {project.challenge}
+                            </p>
+                          </div>
 
-                      <div>
-                        <h3 className="text-xl font-bold mb-4 text-foreground">Customer Obsessed Approach</h3>
-                        <p className="text-muted-foreground leading-relaxed mb-8">
-                          {project.approach}
-                        </p>
-                      </div>
+                          <div>
+                            <h3 className="text-xl font-bold mb-3 text-foreground flex items-center gap-2">
+                              <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                              Customer Obsessed Approach
+                            </h3>
+                            <p className="text-muted-foreground leading-relaxed pl-4 border-l-2 border-orange-500/20">
+                              {project.approach}
+                            </p>
+                          </div>
 
-                      <div>
-                        <h3 className="text-xl font-bold mb-4 text-foreground">Result</h3>
-                        <p className="text-muted-foreground leading-relaxed">
-                          {project.result}
-                        </p>
+                          <div>
+                            <h3 className="text-xl font-bold mb-3 text-foreground flex items-center gap-2">
+                              <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                              Result
+                            </h3>
+                            <p className="text-muted-foreground leading-relaxed pl-4 border-l-2 border-orange-500/20">
+                              {project.result}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
 
                   return (
-                    <div key={index} className="mb-20">
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20 pt-20 border-t border-border">
+                    <div key={index} className="mb-20 relative">
+                      {/* Timeline dot - only show on lg+ screens */}
+                      <div className="hidden lg:block">
+                        {TimelineDot}
+                      </div>
+                      
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-12 lg:mb-0">
                         {isEven ? (
                           <>
-                            {ImageColumn}
-                            {DetailsColumn}
+                            <div className={`${isEven ? 'lg:pr-16' : 'lg:pl-16'}`}>
+                              {ImageColumn}
+                            </div>
+                            <div className={`${isEven ? 'lg:pl-16' : 'lg:pr-16'}`}>
+                              {DetailsColumn}
+                            </div>
                           </>
                         ) : (
                           <>
-                            {DetailsColumn}
-                            {ImageColumn}
+                            <div className={`${isEven ? 'lg:pr-16' : 'lg:pl-16'} lg:order-2`}>
+                              {ImageColumn}
+                            </div>
+                            <div className={`${isEven ? 'lg:pl-16' : 'lg:pr-16'} lg:order-1`}>
+                              {DetailsColumn}
+                            </div>
                           </>
                         )}
                       </div>
@@ -545,7 +639,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                   </div>
                   <div className="flex flex-wrap justify-center gap-3">
                     {socialLinks.map((link, index) => (
-                      <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                      <a key={index} href={link.href} className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
                         <span className="text-sm">{link.icon}</span>
                       </a>
                     ))}
@@ -571,7 +665,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
 
                   <div className="flex items-center space-x-4">
                     {socialLinks.map((link, index) => (
-                      <a key={index} href={link.href} className="w-8 h-8 bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                      <a key={index} href={link.href} className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
                         <span className="text-sm">{link.icon}</span>
                       </a>
                     ))}
