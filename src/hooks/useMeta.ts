@@ -141,5 +141,5 @@ export const useMeta = (options: MetaOptions) => {
         metaTwitterImage.remove();
       }
     };
-  }, [options.title, options.description, options.ogTitle, options.ogDescription, options.ogImage, options.twitterTitle, options.twitterDescription, options.twitterImage]);
+  }, [options]);
 };

@@ -19,11 +19,19 @@ const Blog = () => {
     if (!month) return true; // No month is valid
     return /^(0[1-9]|1[0-2])$/.test(month);
   };
-  
-  // Check if parameters are valid
-  if (!isValidYear(filterYear) || !isValidMonth(filterMonth)) {
-    return <NotFound />;
-  }
+
+  // Set meta tags for blog page
+  const getPageTitle = () => {
+    if (filterYear && filterMonth) return `Gradient Check; blogs from ${filterYear}/${filterMonth} — by Shah Syed`;
+    if (filterYear) return `Gradient Check; blogs from ${filterYear} — by Shah Syed`;
+    return 'Gradient Check; blogs — by Shah Syed';
+  };
+
+  const getPageDescription = () => {
+    if (filterYear && filterMonth) return `Blog posts from ${filterYear}/${filterMonth} by Shah Syed, covering product management, AI, and technology insights.`;
+    if (filterYear) return `Blog posts from ${filterYear} by Shah Syed, covering product management, AI, and technology insights.`;
+    return 'Blog posts by Shah Syed, covering product management, AI, and technology insights.';
+  };
 
   useEffect(() => {
     loadAllBlogPostsClient().then(allPosts => {
@@ -50,25 +58,17 @@ const Blog = () => {
     });
   }, [filterYear, filterMonth]);
 
-  // Set meta tags for blog page
-  const getPageTitle = () => {
-    if (filterYear && filterMonth) return `Gradient Check; blogs from ${filterYear}/${filterMonth} — by Shah Syed`;
-    if (filterYear) return `Gradient Check; blogs from ${filterYear} — by Shah Syed`;
-    return 'Gradient Check; blogs — by Shah Syed';
-  };
-
-  const getPageDescription = () => {
-    if (filterYear && filterMonth) return `Blog posts from ${filterYear}/${filterMonth} by Shah Syed, covering product management, AI, and technology insights.`;
-    if (filterYear) return `Blog posts from ${filterYear} by Shah Syed, covering product management, AI, and technology insights.`;
-    return 'Blog posts by Shah Syed, covering product management, AI, and technology insights.';
-  };
-
   useMeta({
     title: getPageTitle(),
     description: getPageDescription(),
     ogTitle: getPageTitle(),
     ogDescription: getPageDescription(),
   });
+  
+  // Check if parameters are valid
+  if (!isValidYear(filterYear) || !isValidMonth(filterMonth)) {
+    return <NotFound />;
+  }
 
   if (loading) return <div className="p-12 text-center">Loading blog posts...</div>;
 

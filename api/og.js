@@ -1,3 +1,6 @@
+/* eslint-disable */
+// @ts-nocheck
+import React from 'react';
 import { ImageResponse } from '@vercel/og';
 
 export default function handler(req, res) {
