@@ -14,6 +14,7 @@
     "test:social": "node scripts/test-social-posting.cjs"
   },
   "dependencies": {
+    "@atproto/api": "^0.16.2",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -52,6 +53,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.6.0",
     "express": "^5.1.0",
+    "framer-motion": "^12.23.12",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
@@ -70,8 +72,7 @@
     "three": "^0.179.1",
     "twitter-api-v2": "^1.18.2",
     "vaul": "^0.9.9",
-    "zod": "^3.25.76",
-    "@atproto/api": "^0.16.2"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
