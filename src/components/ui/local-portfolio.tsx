@@ -362,9 +362,8 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                   <motion.a 
                     key={index} 
                     href={link.href}
-                    whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors"
+                    className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 group"
                   >
                     <span className="text-sm">{link.icon}</span>
                   </motion.a>
@@ -426,9 +425,8 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                   <motion.a 
                     key={index} 
                     href={link.href}
-                    whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors"
+                    className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 group"
                   >
                     <span className="text-sm">{link.icon}</span>
                   </motion.a>
@@ -824,17 +822,17 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
 
             {/* Previously Worked At Section */}
             {companies && companies.length > 0 && (
-              <ScrollObserver 
+              <ScrollObserver
                 variants={staggerContainer}
                 className="mb-20 pt-20 border-t border-border"
               >
                 <div className="text-center mb-16">
-                  <motion.h2 
+                  <motion.h2
                     variants={fadeInUp}
                     className="text-5xl md:text-6xl font-bold mb-16 text-foreground"
                   >
                     Previously <span className="text-muted-foreground">Worked At</span>
-                    <motion.span 
+                    <motion.span
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ delay: 0.5, duration: 0.8, type: "spring", bounce: 0.6 }}
@@ -843,14 +841,14 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                       .
                     </motion.span>
                   </motion.h2>
-                  
-                  <motion.div 
+
+                  <motion.div
                     variants={staggerContainer}
                     className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center max-w-5xl mx-auto"
                   >
                     {companies.map((company, index) => (
-                      <motion.div 
-                        key={index} 
+                      <motion.div
+                        key={index}
                         variants={fadeInScale}
                         whileHover={{ scale: 1.1, y: -5 }}
                         className="flex items-center justify-center p-4"
@@ -902,7 +900,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
                   </div>
                   <div className="flex flex-wrap justify-center gap-3">
                     {socialLinks.map((link, index) => (
-                      <a key={index} href={link.href} className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                      <a key={index} href={link.href} className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 group">
                         <span className="text-sm">{link.icon}</span>
                       </a>
                     ))}
@@ -928,7 +926,7 @@ const LocalPortfolio: React.FC<LocalPortfolioProps> = ({
 
                   <div className="flex items-center space-x-4">
                     {socialLinks.map((link, index) => (
-                      <a key={index} href={link.href} className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 transition-colors">
+                      <a key={index} href={link.href} className="w-[42px] h-[42px] bg-gray-400 dark:bg-gray-400 rounded-full flex items-center justify-center hover:bg-gray-500 dark:hover:bg-gray-500 hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 group">
                         <span className="text-sm">{link.icon}</span>
                       </a>
                     ))}
