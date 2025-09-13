@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import SocialSpark from "./pages/SocialSpark";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/blog/:year" element={<Blog />} />
           <Route path="/blog/:year/:month" element={<Blog />} />
           <Route path="/blog/:year/:month/:day/:slug" element={<BlogPost />} />
+          <Route path="/socialspark" element={<SocialSpark />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
