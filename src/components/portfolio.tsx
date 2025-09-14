@@ -24,7 +24,7 @@ const customPortfolioData: LocalPortfolioProps = {
     { icon: <img src={instagramIcon} alt="Instagram" className="w-[21px] h-[21px] grayscale group-hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://instagram.com/engineeringpm' },
     { icon: <img src={tiktokIcon} alt="TikTok" className="w-[21px] h-[21px] grayscale group-hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://tiktok.com/@engineeringpm' },
       // { icon: <img src={twitterIcon} alt="Twitter" className="w-[21px] h-[21px] grayscale group-hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://twitter.com/pmengineer' },
-    { icon: <img src={blueskyIcon} alt="BlueSky" className="w-[21px] h-[21px] grayscale group-hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://bsky.app/profile/engineeringpm.bsky.social' },
+    { icon: <img src={blueskyIcon} alt="BlueSky" className="w-[21px] h-[21px] grayscale group-hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'https://bsky.app/profile/engineeringpm.com' },
     { icon: <img src={emailIcon} alt="Email" className="w-[21px] h-[21px] grayscale group-hover:grayscale-0 transition-all duration-300 dark:invert" />, href: 'mailto:shah@shahsyed.com' }
   ],
   navLinks: [
