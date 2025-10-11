@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import kelIcon from "@/assets/icons/kel.png";
 
 const SocialSpark = () => {
   return (
@@ -22,8 +23,8 @@ const SocialSpark = () => {
               <CardContent className="space-y-6">
                 <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-6">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xl font-bold">K</span>
+                    <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                      <img src={kelIcon} alt="Kel" className="w-full h-full object-cover" />
                     </div>
                     <div>
                       <h4 className="font-semibold text-gray-900 dark:text-white">Kel</h4>
@@ -36,7 +37,7 @@ const SocialSpark = () => {
                   <div className="aspect-video bg-gray-200 dark:bg-gray-600 rounded-lg overflow-hidden">
                     <iframe
                       className="w-full h-full"
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                      src="https://www.youtube.com/embed/yRIWNrKvv9w"
                       title="Kel's SocialSpark Testimonial"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
