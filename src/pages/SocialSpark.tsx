@@ -14,6 +14,43 @@ const SocialSpark = () => {
             </p>
           </div>
 
+          <div className="mb-12">
+            <Card className="border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle>Client Testimonial</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-6">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-xl font-bold">K</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">Kel</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">Product Manager</p>
+                    </div>
+                  </div>
+                  <blockquote className="text-gray-700 dark:text-gray-200 italic mb-4">
+                    "SocialSpark has been a game-changer for my social media strategy. I started using it when it was just a prototype, and seeing it evolve into a full-fledged product has been incredible. Shah's expertise in setting it up and his ongoing support have been invaluable. The automation has saved me countless hours while maintaining quality content across all my platforms."
+                  </blockquote>
+                  <div className="aspect-video bg-gray-200 dark:bg-gray-600 rounded-lg overflow-hidden">
+                    <iframe
+                      className="w-full h-full"
+                      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                      title="Kel's SocialSpark Testimonial"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 text-center">
+                    Kel shares his experience with SocialSpark and thanks Shah for the setup assistance
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
             <Card className="border-0 shadow-lg">
               <CardHeader>
