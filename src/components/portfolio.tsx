@@ -88,7 +88,7 @@ const customPortfolioData: LocalPortfolioProps = {
           'feedback to improve site performance and user engagement metrics.',
       approach: 'The process began by creating a comprehensive PRD using established templates (like Lenny\'s newsletter one-pager) that clearly defined the product vision and user needs before jumping into development.\n' +
           '\n' +
-          'AI tools like Lovable were used to rapidly prototype and test the portfolio, focusing on responsive design across devices (desktop, tablet, mobile) to ensure optimal user experience regardless of platform.\n' +
+          'AI-powered development tools were used to rapidly prototype and test the portfolio, focusing on responsive design across devices (desktop, tablet, mobile) to ensure optimal user experience regardless of platform.\n' +
           '\n',
       result: 'Launched a comprehensive analytics based portfolio using AI that tracks user visits, sees how people are engaging with my website, so that I can grow my personal brand.',
       videoUrl: 'https://www.youtube.com/embed/6Gfdp26yVoU?si=AQJEy8U8Y3dPYmCD'
