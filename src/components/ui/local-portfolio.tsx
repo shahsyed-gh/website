@@ -201,7 +201,7 @@ const defaultData = {
 };
 
 // --- SCROLL OBSERVER COMPONENT ---
-const ScrollObserver: React.FC<{ children: React.ReactNode; variants?: any; className?: string }> = ({ 
+const ScrollObserver: React.FC<{ children: React.ReactNode; variants?: object; className?: string }> = ({ 
   children, 
   variants = fadeInUp, 
   className = "" 
