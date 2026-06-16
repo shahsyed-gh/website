@@ -1,31 +1,21 @@
-# Use official Node.js image for build
-FROM node:20-alpine AS builder
+# ---- Build stage ----
+# Node 22 (LTS) satisfies Vite 8's engine requirement (>=20.19 || >=22.12).
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Install build dependencies for canvas
-RUN apk add --no-cache \
-    python3 \
-    make \
-    g++ \
-    cairo-dev \
-    jpeg-dev \
-    pango-dev \
-    musl-dev \
-    giflib-dev \
-    pixman-dev \
-    pangomm-dev \
-    libjpeg-turbo-dev \
-    freetype-dev
-
+# Only the frontend (Vite) is built and deployed; the canvas-based OG-image API
+# in server.js is not part of this image. Install with --ignore-scripts so the
+# native `canvas` module is never compiled (it isn't needed for the build), which
+# also removes the need for the cairo/pango/g++ toolchain packages entirely.
 COPY package*.json ./
-RUN npm install
+RUN npm ci --ignore-scripts
 
 COPY . .
 RUN npm run build
 
-# Use a lightweight image to serve the build
-FROM node:20-alpine AS runner
+# ---- Runtime stage ----
+FROM node:22-alpine AS runner
 
 WORKDIR /app
 
